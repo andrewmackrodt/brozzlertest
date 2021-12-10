@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Brozzler Test | M3U8</title>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  </head>
+  <body>
+    <div>
+      <p><a href="index.html">Back</a></p>
+      <video id="video" width="264" height="198" controls loop></video>
+    </div>
+    <script>
+      const playlist = 'assets/videos/printer-264x198.m3u8'
+      if (Hls.isSupported()) {
+          const video = document.getElementById('video')
+          const hls = new Hls()
+          hls.loadSource(playlist)
+          hls.attachMedia(video)
+          hls.on(Hls.Events.MANIFEST_PARSED, () => video.play())
+      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+          video.src = playlist
+          video.addEventListener('canplay', () => video.play())
+      }
+    </script>
+  </body>
+</html>
